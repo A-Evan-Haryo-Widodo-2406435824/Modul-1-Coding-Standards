@@ -25,6 +25,15 @@ public class ProductRepository {
         return null;
     }
 
+    public Boolean delete(String id){
+        int productIndex = findIndexOf(id);
+        if(productIndex != -1){
+            productData.remove(productIndex);
+            return true;
+        }
+        return false;
+    }
+
 
     public Iterator<Product> findAll(){
         return productData.iterator();
