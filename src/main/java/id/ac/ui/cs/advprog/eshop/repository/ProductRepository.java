@@ -1,0 +1,62 @@
+package id.ac.ui.cs.advprog.eshop.repository;
+
+import id.ac.ui.cs.advprog.eshop.model.Product;
+import org.springframework.stereotype.Repository;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+@Repository
+public class ProductRepository {
+    private List<Product> productData = new ArrayList<>();
+
+    public Product create(Product product){
+        productData.add(product);
+        return product;
+    }
+
+    public Product update(Product product){
+        int productIndex = findIndexOf(product.getProductId());
+        if(productIndex != -1){
+            productData.set(productIndex, product);
+            return product;
+        }
+        return null;
+    }
+
+    public Boolean delete(String id){
+        int productIndex = findIndexOf(id);
+        if(productIndex != -1){
+            productData.remove(productIndex);
+            return true;
+        }
+        return false;
+    }
+
+
+    public Iterator<Product> findAll(){
+        return productData.iterator();
+    }
+
+    public Product findById(String id){
+        for(Product product : productData){
+            if(product.getProductId().equals(id)){
+                return product;
+            }
+        }
+        return null;
+    }
+
+    // -- PRIVATE METHOD (untuk helper) --
+    private int findIndexOf(String id){
+        for(int index = 0; index < productData.size(); index++){
+            Product productLookUp = productData.get(index);
+            if(productLookUp.getProductId().equals(id)){
+                return index;
+            }
+        }
+        return -1;
+    }
+
+}
