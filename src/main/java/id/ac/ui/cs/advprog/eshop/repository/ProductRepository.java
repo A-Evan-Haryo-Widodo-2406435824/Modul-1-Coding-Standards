@@ -16,6 +16,16 @@ public class ProductRepository {
         return product;
     }
 
+    public Product update(Product product){
+        int productIndex = findIndexOf(product.getProductId());
+        if(productIndex != -1){
+            productData.set(productIndex, product);
+            return product;
+        }
+        return null;
+    }
+
+
     public Iterator<Product> findAll(){
         return productData.iterator();
     }
