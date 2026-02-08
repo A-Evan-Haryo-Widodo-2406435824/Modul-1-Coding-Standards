@@ -20,4 +20,24 @@ public class ProductRepository {
         return productData.iterator();
     }
 
+    public Product findById(String id){
+        for(Product product : productData){
+            if(product.getProductId().equals(id)){
+                return product;
+            }
+        }
+        return null;
+    }
+
+    // -- PRIVATE METHOD (untuk helper) --
+    private int findIndexOf(String id){
+        for(int index = 0; index < productData.size(); index++){
+            Product productLookUp = productData.get(index);
+            if(productLookUp.getProductId().equals(id)){
+                return index;
+            }
+        }
+        return -1;
+    }
+
 }
