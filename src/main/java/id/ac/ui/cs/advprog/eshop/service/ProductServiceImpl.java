@@ -26,17 +26,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product update(Product product){
-        return productRepository.update(product);
-    }
-
-    @Override
-    public void delete(String id){
-        productRepository.delete(id);
-    }
-
-
-    @Override
     public List<Product> findAll(){
         Iterator<Product> productIterator = productRepository.findAll();
         List<Product> allProduct = new ArrayList<>();
@@ -48,5 +37,4 @@ public class ProductServiceImpl implements ProductService {
     public Product findById(String id){
         return productRepository.findById(id);
     }
-
 }
