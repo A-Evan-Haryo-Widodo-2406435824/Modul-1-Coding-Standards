@@ -70,5 +70,58 @@ class ProductRepositoryTest {
 
     }
 
+    @Test
+    void testEditProduct_Success(){
+        Product product = new Product();
+        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setProductName("sabun biore");
+        product.setProductQuantity(10);
+        productRepository.create(product);
+
+        Product updatedProduct = new Product();
+        updatedProduct.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        updatedProduct.setProductName("sabun nivea");
+        updatedProduct.setProductQuantity(20);
+        Product result = productRepository.update(updatedProduct);
+
+        assertNotNull(result);
+        assertEquals("sabun nivea", result.getProductName());
+        assertEquals(20, result.getProductQuantity());
+
+        Product storedProduct = productRepository.findById("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        assertEquals("sabun nivea", storedProduct.getProductName());
+        assertEquals(20, storedProduct.getProductQuantity());
+
+    }
+
+
+    @Test
+    void testEditProduct_Failed_NotFound(){
+        Product updatedProduct = new Product();
+        updatedProduct.setProductId("ab558e9f-1c39-460e-8860-71af6af63bd6");
+        updatedProduct.setProductName("sabun niveas");
+        updatedProduct.setProductQuantity(20);
+        Product result = productRepository.update(updatedProduct);
+        assertNull(result);
+    }
+
+    @Test
+    void testDeleteProduct_Success(){
+        Product product = new Product();
+        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setProductName("sabun biore");
+        product.setProductQuantity(10);
+        productRepository.create(product);
+
+        Boolean result = productRepository.delete("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        assertTrue(result);
+    }
+
+    @Test
+    void testDeleteProduct_Failed_NotFound(){
+        Boolean result = productRepository.delete("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        assertFalse(result);
+    }
+
 
 }
